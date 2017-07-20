@@ -3,9 +3,11 @@
 
 #include "hiberlite/hiberlite.h"
 
+#include <algorithm>
 #include <cassert>
 #include <iostream>
 #include <memory>
+#include <string>
 #include <vector>
 
 namespace FoodDatabase
@@ -76,6 +78,10 @@ namespace FoodDatabase
 	std::vector<Food> lookup(const std::string& name)
 	{
 		std::vector<Food> matches;
+
+		// all names are encoded as lower case
+		std::string search_name = name;
+		std::transform(search_name.begin(), search_name.end(), search_name.begin(), ::tolower);
 
 		// search for foods that match
 		for(auto food : foods_)
